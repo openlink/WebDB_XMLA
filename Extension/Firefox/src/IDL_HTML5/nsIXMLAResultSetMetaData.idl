@@ -1,0 +1,15 @@
+#include "nsISupports.idl"
+
+
+[scriptable, uuid(fec17adf-e0f9-462d-8d4e-dd684f0164e0)]
+interface nsIXMLAResultSetMetaData : nsISupports {
+
+  readonly attribute unsigned short columnCount;
+
+  DOMString getColumnType(in unsigned short aIndex);
+
+  boolean isNullable(in unsigned short aIndex);
+  
+  DOMString getColumnName(in unsigned short aIndex);
+
+};

@@ -1,0 +1,9 @@
+#include "nsISupports.idl"
+
+
+[scriptable, uuid(b71e373d-dc65-4e19-9884-7cafbf557fce)]
+interface nsIXMLAVoidCallback : nsISupports {
+
+  void handleEvent();
+
+};

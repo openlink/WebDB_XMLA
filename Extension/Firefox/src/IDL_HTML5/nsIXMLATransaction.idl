@@ -1,0 +1,55 @@
+#include "nsISupports.idl"
+
+interface nsIXMLAStatementCallback;
+interface nsIXMLAStatementErrorCallback;
+interface nsIVariant;
+
+[scriptable, uuid(f261bd02-ba6c-4573-8e91-e09c59b52c37)]
+interface nsIXMLATransaction : nsISupports {
+
+  void executeSql(in DOMString sqlStatement, 
+  	[optional] in nsIVariant arguments, 
+  	[optional] in nsIXMLAStatementCallback callback,
+  	[optional] in nsIXMLAStatementErrorCallback errorCallback);
+
+
+  void getCatalogs(
+  	[optional] in nsIXMLAStatementCallback callback,
+  	[optional] in nsIXMLAStatementErrorCallback errorCallback);
+
+  void getTables(in DOMString catalog, in DOMString schema, 
+  		in DOMString table, in DOMString tableType,
+  	        [optional] in nsIXMLAStatementCallback callback,
+  	        [optional] in nsIXMLAStatementErrorCallback errorCallback);
+
+  void getColumns(in DOMString catalog, in DOMString schema, 
+  		in DOMString table, in DOMString column,
+  	        [optional] in nsIXMLAStatementCallback callback,
+  	        [optional] in nsIXMLAStatementErrorCallback errorCallback);
+  
+  void getPrimaryKeys(in DOMString catalog, in DOMString schema, 
+  		in DOMString table,
+  	        [optional] in nsIXMLAStatementCallback callback,
+  	        [optional] in nsIXMLAStatementErrorCallback errorCallback);
+
+  void getForeignKeys(in DOMString pcatalog, in DOMString pschema, 
+  		in DOMString ptable, in DOMString fcatalog, in DOMString fschema, 
+  		in DOMString ftable,
+  	        [optional] in nsIXMLAStatementCallback callback,
+  	        [optional] in nsIXMLAStatementErrorCallback errorCallback);
+
+  void getTypeInfo(in short dataType,
+  	        [optional] in nsIXMLAStatementCallback callback,
+  	        [optional] in nsIXMLAStatementErrorCallback errorCallback);
+
+
+  void getProcedures(in DOMString catalog, in DOMString schema, 
+  		in DOMString procedure,
+  	        [optional] in nsIXMLAStatementCallback callback,
+  	        [optional] in nsIXMLAStatementErrorCallback errorCallback);
+
+  void getProcedureColumns(in DOMString catalog, in DOMString schema, 
+  		in DOMString procedure, in DOMString column,
+  	        [optional] in nsIXMLAStatementCallback callback,
+  	        [optional] in nsIXMLAStatementErrorCallback errorCallback);
+};

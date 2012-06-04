@@ -1,0 +1,32 @@
+{
+   "name": "OpenLink HTML5 WebDB-to-XMLA Bridge",
+   "version": "1.0.8",
+   "description": "Enables XMLA use by/through HTML5 WebDB Database interfaces.",
+   "icons": {
+      "32": "chrome/content/img/icon32.png",
+      "48": "chrome/content/img/icon48.png",
+      "128": "chrome/content/img/icon128.png"
+   },
+   "content_scripts": [
+     {
+       "matches": ["http://*/*","https://*/*","file:///*"],
+       "run_at": "document_start",
+       "js": ["chrome/content/bg.js"],
+       "all_frames": true
+     }
+   ],
+   "plugins": [ 
+     {
+      "path": "plugin/npxmla_chrome.dll",
+      "public": true
+     },
+     {
+      "path": "plugin/NPXMLA_Chrome.plugin",
+      "public": true
+     },
+     {
+      "path": "plugin/libnpxmla_chrome.so",
+      "public": true
+     }
+     ]
+}

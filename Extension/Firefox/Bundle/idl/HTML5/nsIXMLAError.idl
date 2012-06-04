@@ -1,0 +1,13 @@
+#include "nsISupports.idl"
+
+
+[scriptable, uuid(55127da2-35e4-413b-a399-026c2ebe2f2b)]
+interface nsIXMLAError : nsISupports {
+
+  readonly attribute long code;
+
+  readonly attribute DOMString message;
+
+  readonly attribute DOMString state;
+
+};

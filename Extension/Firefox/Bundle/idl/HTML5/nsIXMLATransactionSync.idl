@@ -1,0 +1,12 @@
+#include "nsISupports.idl"
+
+interface nsIXMLAResultSet;
+interface nsIVariant;
+
+[scriptable, uuid(282a47e3-9f1a-48f4-a93d-cb4a01ad4275)]
+interface nsIXMLATransactionSync : nsISupports {
+
+  nsIXMLAResultSet executeSql(in DOMString sqlStatement, 
+  	[optional] in nsIVariant arguments);
+
+};

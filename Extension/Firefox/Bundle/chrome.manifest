@@ -1,0 +1,23 @@
+content	xmlastorage	chrome/content/
+
+component {a0a3af3f-910c-47d7-8f8a-4ff18a7c5b06} components/nsXMLA.js
+contract @openlinksw.com/WebXMLADatabase;1 {a0a3af3f-910c-47d7-8f8a-4ff18a7c5b06}
+category JavaScript-global-property XMLAUtils @openlinksw.com/WebXMLADatabase;1
+
+interfaces components/nsIWorkerXMLADatabase.xpt
+interfaces components/nsIXMLADatabase.xpt
+interfaces components/nsIXMLADatabaseCallback.xpt
+interfaces components/nsIXMLADatabaseSync.xpt
+interfaces components/nsIXMLAError.xpt
+interfaces components/nsIXMLAException.xpt
+interfaces components/nsIXMLAResultSet.xpt
+interfaces components/nsIXMLAResultSetMetaData.xpt
+interfaces components/nsIXMLAResultSetRowList.xpt
+interfaces components/nsIXMLAStatementCallback.xpt
+interfaces components/nsIXMLAStatementErrorCallback.xpt
+interfaces components/nsIXMLATransaction.xpt
+interfaces components/nsIXMLATransactionCallback.xpt
+interfaces components/nsIXMLATransactionErrorCallback.xpt
+interfaces components/nsIXMLATransactionSync.xpt
+interfaces components/nsIXMLATransactionSyncCallback.xpt
+interfaces components/nsIXMLAVoidCallback.xpt

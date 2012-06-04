@@ -1,0 +1,10 @@
+#include "nsISupports.idl"
+
+interface nsIXMLADatabase;
+
+[scriptable, uuid(b966ffd9-808f-465f-a618-40950696f4ff)]
+interface nsIXMLADatabaseCallback : nsISupports {
+
+  void handleEvent(in nsIXMLADatabase database);
+
+};

@@ -1,0 +1,581 @@
+<html>
+	<head>
+		<meta name="vs_snapToGrid" content="True">
+		<meta name="vs_showGrid" content="False">
+		<meta http-equiv="content-type" content="text/html; charset=windows-1251">
+
+<!--[if IE]>
+  <object id="webdb-xmla" type="application/xmla" width="1" height="1">
+  </object>
+<![endif]-->
+
+<script>
+
+
+function clear_log() {
+  var myBox = document.getElementById("log_id");
+  myBox.value = "";
+}
+
+function println(s) {
+  var myBox = document.getElementById("log_id");
+  myBox.value += s+"\n";
+}
+
+
+var dsnloaded = false;
+
+
+function initDSN() {
+  try {
+  if (!XMLAUtils)
+    fFAIL = true;
+  } catch (ex) {
+    alert("Could not locate Openlink XPCOM component!\n"+ex);
+    return;
+  }
+  try {
+    if (!dsnloaded) {
+      var box = document.getElementById("DSN");
+      box.options.length = 0;
+
+      var rows = XMLAUtils.discoverDataSources(document.getElementById('URL').value).rows;
+
+      for(var i=0; i < rows.length; i++) {
+        var val = rows.item(i).DataSourceInfo;
+        if (val === "DSN=Local_Instance")
+          val = "";
+        box.options[i] = new Option(val, val);
+        if (val == "virt")
+          box.options.selectedIndex = i;
+        else
+          box.options.selectedIndex = 0;
+      }
+      dsnloaded = true;
+    }
+  } catch(ex) {
+    document.getElementById('URL').focus();
+    if (ex.message)
+      alert(ex.message);
+    else
+      alert(ex);
+  }
+}
+
+
+function urlChanged() {
+  dsnloaded = false;
+}
+
+
+function Test_Sync()
+{
+  var fFAIL = false;
+  try {
+
+
+  clear_log();
+
+  try {
+  if (!XMLAUtils)
+    fFAIL = true;
+  } catch (ex) {
+    alert("Could not locate Openlink XPCOM component!\n"+ex);
+    return;
+  }
+
+
+  var URL = document.getElementById('URL').value;
+  var DSN = document.getElementById('DSN').value;
+  var UID = document.getElementById('UID').value;
+  var PWD = document.getElementById('PWD').value;
+  var CAT ="";
+
+  var db = XMLAUtils.openXMLADatabaseSync(URL, DSN, CAT, UID, PWD,""); 
+
+
+   println("Start Drop table");
+   db.transaction({
+     handleEvent: function(trans)
+     {
+	try {
+          trans.executeSql("drop table test");
+	} catch (e) {
+	}
+
+     }}
+     );
+   println("End Drop table");
+
+   println("Start Create table");
+   db.transaction({
+     handleEvent: function(trans)
+     {
+	try {
+          trans.executeSql(
+            "CREATE TABLE test (" +
+              "id INTEGER PRIMARY KEY, " +
+              "string VARCHAR(20), " +
+              "number DOUBLE PRECISION, " +
+              "nuller VARCHAR(20) " +
+              ")"
+          );
+	} catch (e) {
+	  alert("Error="+e);
+          fFAIL = true;
+	}
+     }});
+   println("End Create table");
+
+   var arr=[2, "str1", 12345.56, null];
+   
+
+   db.transaction({
+     handleEvent: function(trans)
+     {
+	try {
+          var ret = trans.executeSql("insert into test values(1, 'str0',11111.22, NULL)");
+          println("INSERTED res.rowsAffected="+ret.rowsAffected);
+
+          ret = trans.executeSql("insert into test values(?,?,?,?)",
+                    arr);
+          println("INSERTED res.rowsAffected="+ret.rowsAffected);
+
+          var res = trans.executeSql("select * from test");
+          var myrows = res.rows;
+	  println("res.rows.length="+myrows.length);
+	  println("==============================");
+	  println("result access by index");
+	  println("==============================");
+	  for(var i=0; i< myrows.length; i++) {
+	    var cols = myrows.item(i);
+	    for (var col in cols) {
+	      println(">"+cols[col]);
+	    
+	    }
+	    println("------");
+	  }
+	  println("==============================");
+	  println("result access by name");
+	  println("==============================");
+	  for(var i=0; i< myrows.length; i++) {
+	    var cols = myrows.item(i);
+	    println(">>>"+cols.id);
+	    println(">>>"+cols.string);
+	    println(">>>"+cols.number);
+	    println(">>>"+cols.nuller);
+	    println("------");
+	  }
+	  println("==============================");
+	} catch (e) {
+	  alert(e);
+          fFAIL = true;
+	}
+     }});
+  } catch (e) {
+    alert(e)
+    fFAIL = true;
+  }
+  if (fFAIL)
+    println("FINISHED with FAILURE");
+  else
+    println("FINISHED with SUCCESS");
+}
+
+
+function Test_SyncR()
+{
+  var fFAIL = false;
+  try {
+
+
+  clear_log();
+
+  try {
+  if (!XMLAUtils)
+    fFAIL = true;
+  } catch (ex) {
+    alert("Could not locate Openlink XPCOM component!\n"+ex);
+    return;
+  }
+
+
+  var URL = document.getElementById('URL').value;
+  var DSN = document.getElementById('DSN').value;
+  var UID = document.getElementById('UID').value;
+  var PWD = document.getElementById('PWD').value;
+  var CAT ="";
+
+  var db = XMLAUtils.openXMLADatabaseSync(URL, DSN, CAT, UID, PWD,""); 
+
+
+   db.transaction({
+     handleEvent: function(trans)
+     {
+	try {
+          var res = trans.executeSql("select * from test");
+          var myrows = res.rows;
+	  println("res.rows.length="+myrows.length);
+	  println("==============================");
+	  println("result access by index");
+	  println("==============================");
+	  for(var i=0; i< myrows.length; i++) {
+	    var cols = myrows.item(i);
+	    for (var col in cols) {
+	      println(">"+cols[col]);
+	    
+	    }
+	    println("------");
+	  }
+	  println("==============================");
+	  println("result access by name");
+	  println("==============================");
+	  for(var i=0; i< myrows.length; i++) {
+	    var cols = myrows.item(i);
+	    println(">>>"+cols.id);
+	    println(">>>"+cols.string);
+	    println(">>>"+cols.number);
+	    println(">>>"+cols.nuller);
+	    println("------");
+	  }
+	  println("==============================");
+	} catch (e) {
+	  alert(e);
+          fFAIL = true;
+	}
+     }});
+  } catch (e) {
+    alert(e)
+    fFAIL = true;
+  }
+  if (fFAIL)
+    println("FINISHED with FAILURE");
+  else
+    println("FINISHED with SUCCESS");
+}
+
+
+
+function Test_Async() {
+
+  var fFAIL = false;
+
+  try {
+
+
+  clear_log();
+
+  try {
+  if (!XMLAUtils)
+    fFAIL = true;
+  } catch (ex) {
+    alert("Could not locate Openlink XPCOM component!\n"+ex);
+    return;
+  }
+
+  var URL = document.getElementById('URL').value;
+  var DSN = document.getElementById('DSN').value;
+  var UID = document.getElementById('UID').value;
+  var PWD = document.getElementById('PWD').value;
+  var CAT ="";
+
+  var db = XMLAUtils.openXMLADatabase(URL, DSN, CAT, UID, PWD,""); 
+
+   var hErr = {
+     handleEvent: function(err) { println(err); println("Error"+err.message); fFAIL=true;}
+   };
+
+   var hSucc = {
+     handleEvent: function() { println("=Success="); }
+   };
+
+   db.transaction({
+     handleEvent: function(trans)
+     {
+          trans.executeSql("drop table test");
+     }});
+
+   db.transaction({
+     handleEvent: function(trans)
+     {
+          trans.executeSql(
+            "CREATE TABLE test (" +
+              "id INTEGER PRIMARY KEY, " +
+              "string VARCHAR(20), " +
+              "number DOUBLE PRECISION, " +
+              "nuller VARCHAR(20) " +
+              ")"
+          );
+     }}, hErr);
+
+   var arr=[2,"str1", 12345.56, null];
+   
+   var hErr1 = {
+     handleEvent: function(tr, err) { println(err); println("Error"+err.message); fFAIL=true; return true; }
+   };
+   
+   var hSucc1 = {
+     handleEvent: function(tr, rs) { 
+       if (rs.metaData.columnCount == 0)
+     	  println("=Success= RowsAffected="+rs.rowsAffected); 
+
+      var myrows = rs.rows;
+       if (myrows && myrows.length > 0)
+       {	
+	  println("=Success= ResultSet");
+	  println("res.rows.length="+myrows.length);
+	  println("==============================");
+	  println("result access by index");
+	  println("==============================");
+	  for(var i=0; i< myrows.length; i++) {
+	    var cols = myrows.item(i);
+	    for (var col in cols) {
+	      println(">"+cols[col]);
+	    
+	    }
+	    println("------");
+	  }
+	  println("==============================");
+	  println("result access by name");
+	  println("==============================");
+	  for(var i=0; i< myrows.length; i++) {
+	    var cols = myrows.item(i);
+	    println(">>>"+cols.id);
+	    println(">>>"+cols.string);
+	    println(">>>"+cols.number);
+	    println(">>>"+cols.nuller);
+	    println("------");
+	  }
+	  println("==============================");
+       };
+     }
+   };
+   
+   db.transaction({
+     handleEvent: function(trans)
+     {
+          trans.executeSql("insert into test values(1,'str0',11111.22, NULL)",
+          	[], hSucc1, hErr1);
+          trans.executeSql("insert into test values(?,?,?,?)",
+                arr, hSucc1, hErr1);
+
+          trans.executeSql("select * from test", [], hSucc1, hErr1);
+     
+          println("FINISHED ASYNC PART");
+          if (fFAIL)
+            println("FINISHED FAILURE");
+          else
+            println("FINISHED SUCCESS");
+     }}, hErr);
+
+     
+  } catch (e) {
+    alert(e)
+    fFAIL = true;
+  }
+  println("FINISHED SYNC PART");
+}
+
+
+function Test_AsyncR() {
+
+  var fFAIL = false;
+
+  try {
+
+
+  clear_log();
+
+  try {
+  if (!XMLAUtils)
+    fFAIL = true;
+  } catch (ex) {
+    alert("Could not locate Openlink XPCOM component!\n"+ex);
+    return;
+  }
+
+  var URL = document.getElementById('URL').value;
+  var DSN = document.getElementById('DSN').value;
+  var UID = document.getElementById('UID').value;
+  var PWD = document.getElementById('PWD').value;
+  var CAT ="";
+
+  var db = XMLAUtils.openXMLADatabase(URL, DSN, CAT, UID, PWD,""); 
+
+   var hErr = {
+     handleEvent: function(err) { println(err); println("Error"+err.message); fFAIL=true;}
+   };
+
+   var hErr1 = {
+     handleEvent: function(tr, err) { println(err); println("Error"+err.message); fFAIL=true; return true; }
+   };
+   
+   var hSucc1 = {
+     handleEvent: function(tr, rs) { 
+       if (rs.metaData.columnCount == 0)
+     	  println("=Success= RowsAffected="+rs.rowsAffected); 
+
+      var myrows = rs.rows;
+       if (myrows && myrows.length > 0)
+       {	
+	  println("=Success= ResultSet");
+	  println("res.rows.length="+myrows.length);
+	  println("==============================");
+	  println("result access by index");
+	  println("==============================");
+	  for(var i=0; i< myrows.length; i++) {
+	    var cols = myrows.item(i);
+	    for (var col in cols) {
+	      println(">"+cols[col]);
+	    
+	    }
+	    println("------");
+	  }
+	  println("==============================");
+	  println("result access by name");
+	  println("==============================");
+	  for(var i=0; i< myrows.length; i++) {
+	    var cols = myrows.item(i);
+	    println(">>>"+cols.id);
+	    println(">>>"+cols.string);
+	    println(">>>"+cols.number);
+	    println(">>>"+cols.nuller);
+	    println("------");
+	  }
+	  println("==============================");
+       };
+     }
+   };
+   
+   db.transaction({
+     handleEvent: function(trans)
+     {
+          trans.executeSql("select * from test", [], hSucc1, hErr1);
+     
+          println("FINISHED ASYNC PART");
+          if (fFAIL)
+            println("FINISHED FAILURE");
+          else
+            println("FINISHED SUCCESS");
+     }}, hErr);
+
+     
+  } catch (e) {
+    alert(e)
+    fFAIL = true;
+  }
+  println("FINISHED SYNC PART");
+}
+
+		</script>
+	</head>
+	<body>
+		<table style="Z-INDEX: 0" ID="Table2" width="700">
+			<tr>
+				<td>
+				For UDA connection:
+				<td>
+					For ODBC XMLA connection:</td>
+			</tr>
+		</table>
+		<table style="Z-INDEX: 0">
+			<tr>
+				<td width="20" bgcolor="#ccffff">
+				URL:
+				<td bgcolor="#ccffff"><STRONG>http://myhost:8000/XMLA </STRONG>
+				<td width="50">
+				<td width="20" bgcolor="#ccffff">
+				URL:
+				<td bgcolor="#ccffff"><STRONG>http://myhost:8000/Xmla/Service.asmx </STRONG>
+			<tr>
+				<td bgcolor="#ccffff">
+				DSN:
+				<td bgcolor="#ccffff"><STRONG>&nbsp;virt</STRONG></td>
+				<td width="50">
+				<td bgcolor="#ccffff">
+				DSN:
+				<td bgcolor="#ccffff"><STRONG>&nbsp;virt</STRONG></td>
+			</tr>
+		</table>
+		<br>
+		For Virtuoso connection (Only readonly connection is supported):
+		<table>
+			<tr>
+				<td bgcolor="#ccffff">
+				URL:
+				<td bgcolor="#ccffff"><STRONG>&nbsp;http://myhost:8890/XMLA </STRONG>
+			<tr>
+				<td bgcolor="#ccffff">
+				DSN:
+				<td bgcolor="#ccffff"><EM>&lt;Empty&gt;</EM></td>
+			</tr>
+		</table>
+		<br>
+		<TABLE>
+			<TR>
+				<TD>NOTE: Before executing Virtuoso readonly test, you must create the next table 
+					in dbms:</TD>
+			</TR>
+			<TR>
+				<TD>
+					<EM>create table test (id&nbsp;integer&nbsp;primery key&nbsp;identity, string 
+						varchar(20), number double precision, nuller varchar(20), blober long 
+						varbinary); </EM>
+				</TD>
+			</TR>
+			<tr>
+			<TR>
+				<TD>and insert some data:</TD>
+			</TR>
+			<tr>
+			<TR>
+				<TD><EM>insert into test(string,number,nuller,blober) values('str0',11111.22, 
+						NULL,0x01020304050607);</EM></TD>
+			</TR>
+			<TR>
+				<TD><EM>insert into test(string,number,nuller,blober) values('str1',22222.33, 
+						NULL,0x02030405060808);</EM></TD>
+			</TR>
+		</TABLE>
+		<form name="form1">
+			<table>
+				<tr>
+					<td>
+					XMLA URL:
+					<td><input id="URL" value="http://localhost:8000/XMLA" style="WIDTH: 200px" onchange="urlChanged()"></td>
+				<tr>
+					<td>
+					DSN:
+					<td>
+					  <SELECT id="DSN" style="width: 200px;" onfocus="initDSN()">
+   					    <OPTION selected>virt</OPTION>
+					  </SELECT>
+					</td>
+				<tr>
+					<td>
+					UID:
+					<td><input id="UID" value="dba" style="WIDTH: 200px"></td>
+				<tr>
+					<td>
+					PWD:
+					<td><input id="PWD" value="dba" style="WIDTH: 200px" type="password"></td>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<textarea id="log_id" name="log_text" style="WIDTH: 100%" rows="10"></textarea>
+			<br>
+			<br>
+			<input value="Test Sync Database calls" onclick="Test_Sync();" type="button">
+			<br>
+			<input value="Test Async Database calls" onclick="Test_Async();" type="button">
+			<br>
+			<br>
+			<br>
+			<input value="Readonly Test Sync Database calls" onclick="Test_SyncR();" type="button">
+			<br>
+			<input value="Readonly Test Async Database calls" onclick="Test_AsyncR();" type="button">
+		</form>
+		<hr>
+	</body>
+</html>

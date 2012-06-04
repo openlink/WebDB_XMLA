@@ -1,0 +1,15 @@
+#include "nsISupports.idl"
+
+interface nsIXMLAStatementCallback;
+interface nsIXMLAStatementErrorCallback;
+interface nsIVariant;
+
+[scriptable, uuid(f261bd02-ba6c-4573-8e91-e09c59b52c37)]
+interface nsIXMLATransaction : nsISupports {
+
+  void executeSql(in DOMString sqlStatement, 
+  	[optional] in nsIVariant arguments, 
+  	[optional] in nsIXMLAStatementCallback callback,
+  	[optional] in nsIXMLAStatementErrorCallback errorCallback);
+
+};

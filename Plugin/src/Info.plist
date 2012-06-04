@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundlePackageType</key>
+	<string>BRPL</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleVersion</key>
+	<string>1.0.8</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.8</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.openlinksw.npxmla.plugin</string>
+	<key>CFBundleGetInfoString</key>
+	<string>OpenLink HTML5 WebDB-to-XMLA (Bridge) Plugin ver:1.0.8</string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
+	<key>CSResourcesFileMapped</key>
+	<true/>
+	<key>WebPluginMIMETypes</key>
+	<dict>
+		<key>application/xmla</key>
+		<dict>
+			<key>WebPluginTypeDescription</key>
+			<string>NPXMLA</string>
+		</dict>
+		<key>application/xmla-opera</key>
+		<dict>
+			<key>WebPluginTypeDescription</key>
+			<string>NPXMLA</string>
+		</dict>
+		<key>application/xmla-safari</key>
+		<dict>
+			<key>WebPluginTypeDescription</key>
+			<string>NPXMLA</string>
+		</dict>
+	</dict>
+	<key>WebPluginDescription</key>
+	<string>OpenLink HTML5 WebDB-to-XMLA (Bridge) Plugin ver:1.0.8</string>
+	<key>WebPluginName</key>
+	<string>NPXMLA</string>
+</dict>
+</plist>

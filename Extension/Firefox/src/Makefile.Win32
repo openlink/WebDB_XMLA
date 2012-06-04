@@ -1,0 +1,90 @@
+# Change this to point at your Gecko SDK directory.     h
+GECKO_SDK_PATH = e:\Mozilla\xulrunner-sdk
+ 
+GECKO_DEFINES  = -DXP_WIN -DXP_WIN32 
+ 
+GECKO_INCLUDES = -I $(GECKO_SDK_PATH)/sdk/include -I $(GECKO_SDK_PATH)/include/xpcom -I $(GECKO_SDK_PATH)/include/xpconnect -I $(GECKO_SDK_PATH)/include/string  -I ./inc -I .
+ 
+
+XPT = .\out\nsIXMLAVoidCallback.xpt \
+      .\out\nsIXMLATransactionCallback.xpt \
+      .\out\nsIXMLAResultSetRowList.xpt \
+      .\out\nsIXMLAError.xpt \
+      .\out\nsIXMLAStatementCallback.xpt \
+      .\out\nsIXMLAResultSetMetaData.xpt \
+      .\out\nsIXMLAStatementErrorCallback.xpt \
+      .\out\nsIXMLADatabaseCallback.xpt \
+      .\out\nsIXMLATransactionErrorCallback.xpt \
+      .\out\nsIXMLATransaction.xpt \
+      .\out\nsIXMLAException.xpt \
+      .\out\nsIWorkerXMLADatabase.xpt \
+      .\out\nsIXMLATransactionSync.xpt \
+      .\out\nsIXMLATransactionSyncCallback.xpt \
+      .\out\nsIXMLADatabase.xpt \
+      .\out\nsIXMLAResultSet.xpt \
+      .\out\nsIXMLADatabaseSync.xpt
+
+
+
+
+.\out\nsIXMLAVoidCallback.xpt: .\IDL_HTML5\nsIXMLAVoidCallback.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLATransactionCallback.xpt: .\IDL_HTML5\nsIXMLATransactionCallback.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLAResultSetRowList.xpt: .\IDL_HTML5\nsIXMLAResultSetRowList.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLAError.xpt: .\IDL_HTML5\nsIXMLAError.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLAStatementCallback.xpt: .\IDL_HTML5\nsIXMLAStatementCallback.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLAResultSetMetaData.xpt: .\IDL_HTML5\nsIXMLAResultSetMetaData.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLAStatementErrorCallback.xpt: .\IDL_HTML5\nsIXMLAStatementErrorCallback.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLADatabaseCallback.xpt: .\IDL_HTML5\nsIXMLADatabaseCallback.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLATransactionErrorCallback.xpt: .\IDL_HTML5\nsIXMLATransactionErrorCallback.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLATransaction.xpt: .\IDL_HTML5\nsIXMLATransaction.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLAException.xpt: .\IDL_HTML5\nsIXMLAException.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIWorkerXMLADatabase.xpt: .\IDL_HTML5\nsIWorkerXMLADatabase.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLATransactionSync.xpt: .\IDL_HTML5\nsIXMLATransactionSync.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLATransactionSyncCallback.xpt: .\IDL_HTML5\nsIXMLATransactionSyncCallback.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLADatabase.xpt: .\IDL_HTML5\nsIXMLADatabase.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLAResultSet.xpt: .\IDL_HTML5\nsIXMLAResultSet.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+.\out\nsIXMLADatabaseSync.xpt: .\IDL_HTML5\nsIXMLADatabaseSync.idl
+	$(GECKO_SDK_PATH)\bin\xpidl -m typelib -e $@ -I$(GECKO_SDK_PATH)\idl -I.\IDL_HTML5 $?
+
+
+
+
+
+all : $(XPT) 
+	@echo "==END=="
+
+
+clean :
+	-255 del /q .\out\*.*

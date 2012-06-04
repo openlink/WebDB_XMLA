@@ -1,0 +1,26 @@
+#include "nsISupports.idl"
+
+interface nsIXMLATransactionCallback;
+interface nsIXMLATransactionErrorCallback;
+interface nsIXMLAVoidCallback;
+
+[scriptable, uuid(c8a3091d-1d5c-4b3f-a247-082237b1f86a)]
+interface nsIXMLADatabase : nsISupports {
+
+  void transaction(in nsIXMLATransactionCallback callback, 
+  	[optional] in nsIXMLATransactionErrorCallback errorCallback,
+  	[optional] in nsIXMLAVoidCallback successCallback
+  	);
+
+
+  void readTransaction(in nsIXMLATransactionCallback callback,
+  	[optional] in nsIXMLATransactionErrorCallback errorCallback,
+  	[optional] in nsIXMLAVoidCallback successCallback);
+
+  readonly attribute DOMString version;
+
+  void changeVersion(in DOMString oldVersion, in DOMString newVersion, 
+  	[optional] in nsIXMLATransactionCallback callback,
+  	[optional] in nsIXMLATransactionErrorCallback errorCallback,
+  	[optional] in nsIXMLAVoidCallback successCallback);
+};

@@ -1,0 +1,29 @@
+#include "nsISupports.idl"
+
+interface nsIXMLADatabase;
+interface nsIXMLADatabaseSync;
+interface nsIXMLADatabaseCallback;
+interface nsIXMLAResultSet;
+
+
+[scriptable, uuid(a13b34ba-8146-4120-8a54-1fca74e399d4)]
+interface nsIWorkerXMLADatabase : nsISupports {
+  nsIXMLADatabase openXMLADatabase(in DOMString url, 
+  	in DOMString dsn, 
+  	in DOMString cat, 
+  	in DOMString uid, 
+  	in DOMString pwd, 
+  	in DOMString version, 
+  	[optional] in nsIXMLADatabaseCallback creationCallback);
+
+  nsIXMLADatabaseSync openXMLADatabaseSync(in DOMString url,
+  	in DOMString dsn, 
+  	in DOMString cat, 
+  	in DOMString uid, 
+  	in DOMString pwd, 
+  	in DOMString version, 
+  	[optional] in nsIXMLADatabaseCallback creationCallback);
+
+  nsIXMLAResultSet discoverDataSources(in DOMString url);
+
+};

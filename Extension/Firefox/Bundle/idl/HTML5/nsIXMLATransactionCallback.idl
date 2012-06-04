@@ -1,0 +1,11 @@
+#include "nsISupports.idl"
+
+interface nsIXMLATransaction;
+
+
+[scriptable, uuid(96c864b7-e5ec-426d-94f4-d7e4bc3ddb4d)]
+interface nsIXMLATransactionCallback : nsISupports {
+
+  void handleEvent(in nsIXMLATransaction transaction);
+
+};

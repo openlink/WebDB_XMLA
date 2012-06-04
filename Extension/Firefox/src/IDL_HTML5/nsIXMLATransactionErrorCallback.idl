@@ -1,0 +1,11 @@
+#include "nsISupports.idl"
+
+
+interface nsIXMLAError;
+
+[scriptable, uuid(553031ff-3e64-4ceb-a986-d51456455c2d)]
+interface nsIXMLATransactionErrorCallback : nsISupports {
+
+  void handleEvent(in nsIXMLAError error);
+
+};

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<w:Wix xmlns:w="http://schemas.microsoft.com/wix/2006/wi" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">
+    <w:Fragment>
+        <w:DirectoryRef Id="INSTALLDIR" />
+    </w:Fragment>
+    <w:Fragment>
+        <w:ComponentGroup Id="PluginDLLGroup">
+            <w:Component Id="cmp0AF71A71D015AA3B5778EDE31111E86E" Guid="{E564A914-5880-4207-93D3-58B1067E3F26}" Directory="INSTALLDIR">
+                <w:File Id="fil492DE21267EF7DEC3487FCB7820CBE45" Source="$(var.BINSRC)\npWebDB_to_XMLA.dll">
+                    <w:TypeLib Id="{0FB8BD22-8EEB-5480-BE17-F5F9D358A624}" Description="WebDB_to_XMLA 1.0 Type Library" HelpDirectory="INSTALLDIR" Language="0" MajorVersion="1" MinorVersion="0">
+                        <AppId Description="FireBreathWin" Id="{B415CD14-B45D-4BCA-B552-B06175C38606}" xmlns="http://schemas.microsoft.com/wix/2006/wi">
+                            <Class Id="{058EE661-2C67-59AB-AE16-51CC7D682759}" Context="InprocServer32" Description="OpenLink HTML5 WebDB-to-XMLA (Bridge) ActiveX" ThreadingModel="apartment" Version="1" Programmable="yes" Control="yes">
+                                <w:ProgId Id="openlinksw.WebDB_to_XMLA.1" />
+                            </Class>
+                        </AppId>
+                        <Interface Id="{59BC2189-BEF4-53B1-AD24-723E3C45E8A5}" Name="IFBComEventSource" ProxyStubClassId32="{00020420-0000-0000-C000-000000000046}" xmlns="http://schemas.microsoft.com/wix/2006/wi" />
+                        <Interface Id="{5E80A1F2-CDDB-5EAC-9F6E-47BE551FC818}" Name="IFBControl" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" xmlns="http://schemas.microsoft.com/wix/2006/wi" />
+                        <Interface Id="{FC208B21-99F3-534D-8FE1-6D24A11DD6A6}" Name="IFBComJavascriptObject" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" xmlns="http://schemas.microsoft.com/wix/2006/wi" />
+                    </w:TypeLib>
+                </w:File>
+                <w:RegistryValue Root="HKCR" Key="AppID\npWebDB_to_XMLA.dll" Value="{B415CD14-B45D-4BCA-B552-B06175C38606}" Type="string" Action="write" Name="AppID" />
+                <w:RegistryValue Root="HKCR" Key="CLSID\{058ee661-2c67-59ab-ae16-51cc7d682759}\MiscStatus\1" Value="131473" Type="string" Action="write" />
+                <w:RegistryValue Root="HKCR" Key="CLSID\{058ee661-2c67-59ab-ae16-51cc7d682759}\MiscStatus" Value="0" Type="string" Action="write" />
+                <w:RegistryValue Root="HKCR" Key="MIME\Database\Content Type\application/xmla" Value="OpenLink HTML5 WebDB-to-XMLA (Bridge) ActiveX" Type="string" Action="write" />
+                <w:RegistryValue Root="HKCR" Key="MIME\Database\Content Type\application/xmla" Value="" Type="string" Action="write" Name="Extension" />
+                <w:RegistryValue Root="HKCR" Key="MIME\Database\Content Type\application/xmla" Value="{058ee661-2c67-59ab-ae16-51cc7d682759}" Type="string" Action="write" Name="CLSID" />
+                <w:RegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\Ext\PreApproved\{058ee661-2c67-59ab-ae16-51cc7d682759}" Value="" Type="string" Action="write" />
+                <w:RegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\Ext\Stats\{058ee661-2c67-59ab-ae16-51cc7d682759}\iexplore\AllowedDomains\*" Value="" Type="string" Action="write" />
+                <w:RegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\Ext\Stats\{058ee661-2c67-59ab-ae16-51cc7d682759}\iexplore" Value="1115944" Type="integer" Action="write" Name="Count" />
+            </w:Component>
+        </w:ComponentGroup>
+    </w:Fragment>
+</w:Wix>
