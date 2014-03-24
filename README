@@ -1,0 +1,18 @@
+OpenLink HTML5 WebDB to XMLA bridge
+===================================
+
+The OpenLink HTML5 WebDB to XMLA bridge is a Web browser extension
+that enables the development of database-driven HTML5 (Javascript)
+applications, without binding to specific back-end database engines
+for data storage and access.
+
+XMLA is an HTTP based protocol for performing data access against
+multi-dimensional (OLAP and ROLAP) and tabular (Relational Databases)
+data sources.
+
+This extension only deals with the tabular data sources that are
+directly accessible via XMLA or via ODBC/JDBC bridges.
+
+Documentation, binaries and installation instructions can be found at:
+
+http://wikis.openlinksw.com/dataspace/owiki/wiki/UdaWikiWeb/InstallConfigXMLAHTML5Bridge
